@@ -1,10 +1,12 @@
+/* jshint esversion: 6 */
+
 const carrinho = [
   { nome: 'Caneta', qtde: 10, preco: 7.99, fragil: true },
   { nome: 'Impressora', qtde: 0, preco: 649.5, fragil: true },
   { nome: 'Caderno', qtde: 4, preco: 27.1, fragil: false },
   { nome: 'Lapis', qtde: 3, preco: 5.82, fragil: false },
   { nome: 'Tesoura', qtde: 1, preco: 19.2, fragil: true },
-]
+];
 
 
 // fácil de implementar a função map, reduce e filter ------------------------------------------------------------------
@@ -29,91 +31,102 @@ function meuReduce(array, callback, initialValue) {
   return accumulator;
 }
 
+function meuFilter(array, callback) {
+  const newArray = [];
 
-// // jeito avançado de implementar a função map, reduce e filter ---------------------------------------------------------
+  for (let i in array) {
+    if (callback(array[i], i, array)) {
+      newArray.push(array[i]);
+    }
+  }
 
-// Array.prototype.meuMap = function(callback) {
-//   const newArray = [];
+  return newArray;
+}
 
-//   for (let i = 0; i < this.length; i++) {
-//     newArray.push(callback(this[i], i, array));
-//   }
+// jeito avançado de implementar a função map, reduce e filter ---------------------------------------------------------
 
-//   return newArray;
-// }
+Array.prototype.meuMap = function(callback) {
+  const newArray = [];
 
-// Array.prototype.meuReduce = function(callback, initialValue) {
-//   let accumulator = initialValue;
+  for (let i = 0; i < this.length; i++) {
+    newArray.push(callback(this[i], i, array));
+  }
 
-//   for (let i = 0; i < this.length; i++) {
-//     accumulator = callback(accumulator, this[i], i, this);
-//   }
+  return newArray;
+};
 
-//   return accumulator;
-// }
+Array.prototype.meuReduce = function(callback, initialValue) {
+  let accumulator = initialValue;
 
-// Array.prototype.meuFilter = function (callback) {
-//   const newArray = [];
+  for (let i = 0; i < this.length; i++) {
+    accumulator = callback(accumulator, this[i], i, this);
+  }
 
-//   for (let i = 0; i < this.length; i++) {
-//     if (callback(this[i], i, this)) {
-//       newArray.push(this[i]);
-//     }
-//   }
+  return accumulator;
+};
 
-//   return newArray;
-// }
+Array.prototype.meuFilter = function (callback) {
+  const newArray = [];
 
-// // jeito mais avançado de implementar a função map, reduce e filter ----------------------------------------------------
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      newArray.push(this[i]);
+    }
+  }
 
-// Object.defineProperties(Array.prototype, {
-//   meuFilter: {
-//     value: function(callback) {
-//         const newArray = [];
+  return newArray;
+};
 
-//         for (let i in this) {
-//           if (callback(this[i], i, this)) {
-//             newArray.push(this[i]);
-//           }
-//         }
+// jeito mais avançado de implementar a função map, reduce e filter ----------------------------------------------------
 
-//         return newArray;
-//       },
-//       enumerable: false,
-//       writable: true,
-//     },
-//     meuReduce: {
-//       value: function(callback, initialValue) {
-//         let accumulator = initialValue;
+Object.defineProperties(Array.prototype, {
+  meuFilter: {
+    value: function(callback) {
+        const newArray = [];
 
-//         for (let i in this) {
-//           accumulator = callback(accumulator, this[i], i, this);
-//         }
+        for (let i in this) {
+          if (callback(this[i], i, this)) {
+            newArray.push(this[i]);
+          }
+        }
 
-//         return accumulator;
-//       },
-//       enumerable: false,
-//       writable: true,
-//     },
-//     meuMap: {
-//       value: function(callback) {
-//         const newArray = [];
+        return newArray;
+      },
+      enumerable: false,
+      writable: true,
+    },
+    meuReduce: {
+      value: function(callback, initialValue) {
+        let accumulator = initialValue;
 
-//         for (let i in this) {
-//           newArray.push(callback(this[i], i, array));
-//         }
+        for (let i in this) {
+          accumulator = callback(accumulator, this[i], i, this);
+        }
 
-//         return newArray;
-//       },
-//       enumerable: false,
-//       writable: true,
-//     }
-//   }
-// );
+        return accumulator;
+      },
+      enumerable: false,
+      writable: true,
+    },
+    meuMap: {
+      value: function(callback) {
+        const newArray = [];
 
-// const PegarProdutos = produto => produto.qtde > 0;
-// const somarTotalDoCarrinho = (total, produto) => total + (produto.preco * produto.qtde);
+        for (let i in this) {
+          newArray.push(callback(this[i], i, array));
+        }
 
-// let total = carrinho.meuFilter(PegarProdutos).meuReducer(somarTotalDoCarrinho, 0);
+        return newArray;
+      },
+      enumerable: false,
+      writable: true,
+    }
+  }
+);
 
-// console.log(`total da sua compra foi: R$ ${total}`);
+const PegarProdutos = produto => produto.qtde > 0;
+const calcularTotal = (total, produto) => total + (produto.preco * produto.qtde);
+
+let total = carrinho.meuFilter(PegarProdutos).meuReducer(calcularTotal, 0);
+
+console.log(`total da sua compra foi: R$ ${total}`);
