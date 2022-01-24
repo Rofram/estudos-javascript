@@ -97,7 +97,7 @@ Object.defineProperties(Array.prototype, {
     },
     meuReduce: {
       value: function(callback, initialValue) {
-        let accumulator = initialValue;
+        let accumulator = initialValue ?? this[0];
 
         for (let i in this) {
           accumulator = callback(accumulator, this[i], i, this);
@@ -127,6 +127,6 @@ Object.defineProperties(Array.prototype, {
 const PegarProdutos = produto => produto.qtde > 0;
 const calcularTotal = (total, produto) => total + (produto.preco * produto.qtde);
 
-let total = carrinho.meuFilter(PegarProdutos).meuReducer(calcularTotal, 0);
+let total = carrinho.meuFilter(PegarProdutos).meuReduce(calcularTotal, 0);
 
 console.log(`total da sua compra foi: R$ ${total}`);
