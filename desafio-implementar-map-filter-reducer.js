@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-
 const carrinho = [
   { nome: 'Caneta', qtde: 10, preco: 7.99, fragil: true },
   { nome: 'Impressora', qtde: 0, preco: 649.5, fragil: true },
@@ -43,7 +41,7 @@ function meuFilter(array, callback) {
   return newArray;
 }
 
-// jeito avançado de implementar a função map, reduce e filter ---------------------------------------------------------
+// jeito intermediário de implementar a função map, reduce e filter ---------------------------------------------------------
 
 Array.prototype.meuMap = function(callback) {
   const newArray = [];
@@ -77,7 +75,7 @@ Array.prototype.meuFilter = function (callback) {
   return newArray;
 };
 
-// jeito mais avançado de implementar a função map, reduce e filter ----------------------------------------------------
+// jeito avançado de implementar a função map, reduce e filter ----------------------------------------------------
 
 Object.defineProperties(Array.prototype, {
   meuFilter: {
