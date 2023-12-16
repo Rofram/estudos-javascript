@@ -1,6 +1,16 @@
 {
   "cSpell.words": [
+    "acodec",
+    "funcoes",
+    "maxrate",
+    "moof",
+    "moov",
+    "movflags",
     "opcao",
-    "opcoes"
+    "opcoes",
+    "Pipeable",
+    "Realizacao",
+    "vcodec",
+    "xmlhttprequest"
   ]
 }

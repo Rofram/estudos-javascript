@@ -11,7 +11,7 @@ function numberInFull(number) {
     ['mil', 'milhão', 'bilhão', 'trilhão', 'quadrilhão', 'quintilhão', 'sextilhão', 'septilhão', 'opilião'],
   ]
 
-  return numberString.replace(/\d/g, (match, index, fullNumber) => {
+  return numberString.trim().replace(/\d/g, (match, index, fullNumber) => {
     switch (fullNumber.length) {
       case 1:
         return numbersFull[0][+match];

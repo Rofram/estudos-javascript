@@ -2,7 +2,8 @@ const obj = {
   level1: { 
     level2: {
       level3: {
-        message: "Hello world"
+        message: "Hello world",
+        levelQualquer: "teste"
       }
     }
   }
@@ -25,4 +26,4 @@ function checkNested(obj, key) {
   return keys.includes(key)
 }
 
-console.log(checkNested(obj, /level/))
+console.log(checkNested(obj, 'level3'));

@@ -18,11 +18,11 @@ function decorator(propertyClass) {
 class Database {
   person = new Proxy({ name: ''}, {
     set: (currentContext, propertyKey, newValue) => {
-      // console.log({
-      //   currentContext,
-      //   propertyKey,
-      //   newValue
-      // })
+      console.log({
+        currentContext,
+        propertyKey,
+        newValue
+      })
       currentContext[propertyKey] = newValue
       return true
     }
@@ -37,8 +37,8 @@ class Database {
   }
 
   create() {
-    // console.log('creating...')
-    let counter = 1e5
+    console.log('creating...')
+    let counter = 1e6
     for (let i; i <= counter; i++);
     this.person.name = 'test'
     return 'created!'
